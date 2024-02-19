@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - production-network
+    
+  redis:
+    container_name: redis-exchange
+    image: redis:4.0.6
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_URI=${REDIS_URI}
+    links:
+      - mongodb
+    networks:
+      - production-network
+
+  server:
+    build: ./server
+    container_name: server
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_DB=${MONGO_DB}
+      - REDIS_URI=${REDIS_URI}
+    links:
+      - mongodb
+    networks:
+      - production-network
+
+  # client:
+  #   build: ./client
+  #   container_name: client
+  #   volumes:
+  #     - .:/usr/src/app
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - server
+  #   networks:
+  #     - production-network
+
+networks: 
+    production-network:
+        driver: bridge
+
+volumes:
+  data: {}
