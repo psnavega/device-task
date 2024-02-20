@@ -7,7 +7,12 @@ export const configureWinston = (): any => {
     transports: [
       new winston.transports.Console({
         format: winston.format.combine(
-          winston.format.timestamp()
+          winston.format.colorize(),
+          winston.format.timestamp({
+            format: 'YYYY-MM-DD hh:mm:ss.SSS A'
+          }),
+          winston.format.align(),
+          winston.format.printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`)
         )
       })
     ]
