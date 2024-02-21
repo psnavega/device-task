@@ -4,7 +4,7 @@ import { updateIotController } from '../controllers/iotController'
 
 const routes = Router()
 
-routes.patch('/:imei', updateIotController)
-routes.post('/', updateIotController)
+routes.patch('/api/iot/:imei', updateIotController)
+routes.post('/api/iot', updateIotController)
 
 export default routes

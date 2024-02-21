@@ -2,20 +2,16 @@ import { Schema, model } from 'mongoose'
 import { type IotType } from '../interfaces/iot'
 
 const iotSchema = new Schema({
-  name: {
+  tag: {
     type: String,
     require: true
   },
-  code: {
+  imei: {
     type: String,
     require: true
   },
   rate: {
     type: Number,
-    require: true
-  },
-  fiat: {
-    type: Boolean,
     require: true
   }
 },
