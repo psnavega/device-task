@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { type IotType } from '../interfaces/iot'
+import { type IIot } from '../domains/interfaces/iot'
 
 const iotSchema = new Schema({
   tag: {
@@ -10,9 +10,17 @@ const iotSchema = new Schema({
     type: String,
     require: true
   },
-  rate: {
+  value: {
     type: Number,
     require: true
+  },
+  errorCode: {
+    type: String,
+    require: false
+  },
+  errorDetail: {
+    type: String,
+    require: false
   }
 },
 {
@@ -20,4 +28,4 @@ const iotSchema = new Schema({
 }
 )
 
-export default model<IotType>('Iot', iotSchema)
+export default model<IIot>('Iot', iotSchema)

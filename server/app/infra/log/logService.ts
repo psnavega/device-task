@@ -1,33 +1,45 @@
+/* eslint-disable @typescript-eslint/no-extraneous-class */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import * as winston from 'winston'
 import { configureWinston } from './config/config'
 import { addColors } from 'winston/lib/winston/config'
+import { getDateNowFormatedWithHour } from '../../utils/Date'
 
 export class LoggerService {
-  private readonly logger: winston.Logger
+  private static readonly logger: winston.Logger = winston.createLogger(configureWinston())
 
-  constructor () {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    this.logger = winston.createLogger(configureWinston())
+  private static formatMessage (level: string, message: string, stack?: string): string {
+    const dateNow = getDateNowFormatedWithHour()
+    let formattedMessage = `${level.toUpperCase()} ${dateNow} - ${message}`
+    if (stack != null) {
+      formattedMessage += `\n${stack}`
+    }
+    return formattedMessage
   }
 
-  log (message: string): void {
-    this.logger.log('info', message, addColors({ info: 'green' }))
+  static log (message: string): void {
+    const formattedMessage = this.formatMessage('info', message)
+    LoggerService.logger.log(formattedMessage, addColors({ info: 'green' }))
   }
 
-  error (message: string, stack?: string): void {
-    this.logger.error(message, { stack }, addColors({ error: 'red' }))
+  static error (message: string, stack?: string): void {
+    const formattedMessage = this.formatMessage('error', message, stack)
+    LoggerService.logger.error(formattedMessage, addColors({ error: 'red' }))
   }
 
-  warn (message: string): void {
-    this.logger.warn(message, addColors({ warn: 'yellow' }))
+  static warn (message: string): void {
+    const formattedMessage = this.formatMessage('warn', message)
+    LoggerService.logger.warn(formattedMessage, addColors({ warn: 'yellow' }))
   }
 
-  debug (message: string): void {
-    this.logger.debug(message, addColors({ debug: 'blue' }))
+  static debug (message: string): void {
+    const formattedMessage = this.formatMessage('debug', message)
+    LoggerService.logger.debug(formattedMessage, addColors({ debug: 'blue' }))
   }
 
-  verbose (message: string): void {
-    this.logger.verbose(message, winston.addColors({ verbose: 'cyan' }))
+  static verbose (message: string): void {
+    const formattedMessage = this.formatMessage('verbose', message)
+    LoggerService.logger.verbose(formattedMessage, winston.addColors({ verbose: 'cyan' }))
   }
 }

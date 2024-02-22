@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import * as Joi from 'joi'
 
 export const createIotSchema = Joi.object().keys({
   tag: Joi.string().valid('poweron', 'poweroff', 'timebased', 'errorCode'),
@@ -8,16 +8,15 @@ export const createIotSchema = Joi.object().keys({
 
 export const updateIotSchema = Joi.object().keys({
   tag: Joi.string().valid('poweron', 'poweroff', 'timebased', 'errorCode'),
-  imei: Joi.string().required(),
+  imei: Joi.forbidden(),
   value: Joi.number(),
   errorCode: Joi.when('tag', {
     is: 'errorCode',
     then: Joi.string().required(),
     otherwise: Joi.forbidden()
   }),
-  timeSinceLastPowerOnMinutes: Joi.when('tag', {
-    is: 'errorCode',
-    then: Joi.number().required(),
-    otherwise: Joi.forbidden()
-  })
+}).required()
+
+export const listIotsSchema = Joi.object().keys({
+  status: Joi.string().valid('active', 'inactive', 'all').required()
 }).required()

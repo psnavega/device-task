@@ -6,7 +6,7 @@
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only ./index.ts",
+    "dev": "./node_modules/.bin/ts-node-dev --transpile-only --poll ./index.ts",
     "test": "jest"
   },
   "author": "psnavega",
@@ -33,7 +33,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.4",
     "express": "^4.18.2",
-    "joi": "^17.12.1",
+    "joi": "^17.12.2",
+    "moment": "^2.30.1",
     "mongoose": "^8.1.3",
     "redis": "^4.6.13",
     "winston": "^3.11.0"

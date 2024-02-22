@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
-import { updateIotController } from '../controllers/iotController'
+import { createIotController, listIotsController, updateIotController } from '../controllers/iotController'
 
 const routes = Router()
 
-routes.patch('/api/iot/:imei', updateIotController)
-routes.post('/api/iot', updateIotController)
+routes.patch('/api/v1/iot/:imei', updateIotController)
+routes.post('/api/v1/iot', createIotController)
+routes.get('/api/v1/iot/:status', listIotsController)
 
 export default routes
