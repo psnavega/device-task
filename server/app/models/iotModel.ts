@@ -18,10 +18,6 @@ const iotSchema = new Schema({
     type: String,
     require: false
   },
-  errorDetail: {
-    type: String,
-    require: false
-  }
 },
 {
   timestamps: true

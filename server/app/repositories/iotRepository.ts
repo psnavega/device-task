@@ -6,26 +6,17 @@ export async function update ({ body }: { body: IIot }): Promise<IIot> {
   try {
     const { imei, value, tag, errorCode } = body
 
-    const iot = await iotModel.findOne({ imei }).exec()
+    const iotUpdated = await iotModel.findOneAndUpdate({ imei }, {
+      value,
+      tag,
+      errorCode
+    }).exec()
 
-    if (iot == null) { throw new RequestError('Iot not found', 404) }
-
-    iot.value = value
-    iot.tag = tag
-  
-    iot.value = value;
-    iot.tag = tag;
-
-    if (errorCode !== null) {
-      iot.errorCode = errorCode;
-    } else {
-      iot.errorCode = undefined;
+    if (!iotUpdated) {
+      throw new RequestError('The Device with this IMEI were not found', 404)
     }
 
-
-    await iot.save()
-
-    return iot
+    return iotUpdated
   } catch (e: any) {
     throw new RequestError(e.message ?? 'Unknown error', e.statusCode ?? 500)
   }
@@ -35,9 +26,10 @@ export async function create ({ body }: { body: IIot }): Promise<IIot> {
   try {
     await iotModel.find({
       imei: body.imei
-    }).exec().then((iot) => {
+    }).exec()
+    .then((iot) => {
       if (iot.length > 0) {
-        throw new RequestError('Iot already exists', 409)
+        throw new RequestError('The device with this IMEI already exists and should be unique', 409)
       }
     })
 

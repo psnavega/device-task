@@ -1,8 +1,8 @@
 export interface IIot {
   tag: string
-  imei: string
+  imei?: string
   value: number
-  errorCode?: string
-  createdAt: Date
-  updatedAt: Date
+  errorCode?: string | null
+  createdAt?: Date
+  updatedAt?: Date
 }
