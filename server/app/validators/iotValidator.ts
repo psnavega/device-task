@@ -15,6 +15,11 @@ export const updateIotSchema = Joi.object().keys({
     then: Joi.string().required(),
     otherwise: Joi.forbidden()
   }),
+  timeSinceLastPowerOnMinutes: Joi.when('tag', {
+    is: 'errorCode',
+    then: Joi.number().required(),
+    otherwise: Joi.forbidden()
+  })
 }).required()
 
 export const listIotsSchema = Joi.object().keys({
