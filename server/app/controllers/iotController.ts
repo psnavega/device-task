@@ -47,8 +47,6 @@ export async function createIotController (req: Request, res: Response): Promise
       data: iotCreated
     })
   } catch (error: any) {
-    console.warn(error)
-
     const message = (error as Error).message ?? 'Internal server error'
     const status = error.statusCode ?? 500
 
@@ -69,7 +67,7 @@ export async function listIotsController (req: Request, res: Response): Promise<
       throw new RequestError(String(error.message ?? error), 422)
     }
 
-    const iots = await listIotsService({ slugStatus: value.status, imei: '1' })
+    const iots = await listIotsService({ slugStatus: value.status, imei: value.imei })
 
     return res.status(200).send({
       message: 'success',

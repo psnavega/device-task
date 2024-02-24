@@ -1,6 +1,6 @@
 export enum TagEnum {
-    hasReports = 'Reportando',
-    hasNoReports = 'Sem reportes',
-    onAndOffs = 'Ligados e Desligados',
-    errors = 'Em erro',
+    hasReports = 'Reporting',
+    hasNoReports = 'Not reporting',
+    onAndOffs = 'On and off',
+    errors = 'Error',
 }

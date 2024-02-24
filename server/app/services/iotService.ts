@@ -1,5 +1,6 @@
 import { type IIot } from '../domains/interfaces/iot'
 import { RequestError } from '../errors/RequestError'
+import queryBuilder from '../handlers/queryBuilder/filterDeviceByTagAndImei'
 import { update, create, listIotFiltered } from '../repositories/iotRepository'
 import moment from 'moment'
 
@@ -50,43 +51,13 @@ export async function createService ({ body }: { body: IIot }): Promise<IIot> {
 }
 
 export async function listIotsService({ slugStatus, imei }: { slugStatus: string, imei?: string }): Promise<IIot[]> {
-  const iots = await strategyMountQuery({ slugStatus });
+  const iots = await strategyMountQuery({ slugStatus, imei });
 
   return iots
 }
 
-async function strategyMountQuery({ slugStatus }: { slugStatus: string }): Promise<IIot[]> {
-  const strategy: { [key: string]: any } = {
-    'has-reports': {
-      $and: [
-        { updatedAt: { $lte: moment().subtract(30, 'minutes').toDate() } },
-        { errorCode: null }
-      ]
-    },
-    'has-no-reports': {
-      $and: [
-        { updatedAt: { $gt: moment().subtract(30, 'minutes').toDate() } },
-        { errorCode: null }
-      ]
-    },
-    'on-and-offs': {
-      $or: [
-        {
-          $and: [
-            { tag: 'poweron' },
-            { updatedAt: { $gt: moment().subtract(30, 'minutes').toDate() } }
-          ]
-        },
-        { tag: 'poweroff' }
-      ],
-      errorCode: null
-    },
-    'errors': {
-      errorCode: { $ne: null }
-    }
-  };
-
-  const query = strategy[slugStatus];
+async function strategyMountQuery({ slugStatus, imei }: { slugStatus: string, imei?: string }): Promise<IIot[]> {
+  const query = queryBuilder.filterDeviceByTagAndImei({ slugStatus, imei });
 
   if (!query) throw new RequestError('Invalid slug status', 400);
 

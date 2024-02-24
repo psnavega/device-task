@@ -40,7 +40,7 @@ export const DeviceListHeader = ({
   return (
     <div className="bg-gray-100 p-4 mb-4 rounded-lg">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold text-gray-700 leading-tight">Lista de Dispositivos</h1>
+        <h1 className="text-3xl font-semibold text-gray-700 leading-tight">Devices List</h1>
         <div className="flex w-full justify-end space-x-4">
           <div className="flex items-center">
             <label htmlFor="tagFilter" className="text-sm font-medium text-gray-700 mr-2">Tag:</label>
@@ -51,7 +51,7 @@ export const DeviceListHeader = ({
               onChange={handleTagFilter}
               className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md p-1"
             >
-              <option value="">Selecione um status</option>
+              <option value="">Choose a status</option>
               {Object.entries(TagEnum).map(([key, value]) => (
                 <option key={key} value={key}>{value}</option>
               ))}
@@ -72,7 +72,7 @@ export const DeviceListHeader = ({
             className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
             onClick={handleCleanFields}
           >
-            Limpar
+            Clear
           </button>
           <button
               className={`px-4 py-2 rounded-md focus:outline-none ${
@@ -81,7 +81,7 @@ export const DeviceListHeader = ({
               onClick={handleFilter}
               disabled={!tagFilter}
           >
-              Buscar
+              Search
           </button>
         </div>
       </div>

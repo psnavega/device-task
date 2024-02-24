@@ -6,6 +6,6 @@ const routes = Router()
 
 routes.patch('/api/v1/iot/:imei', updateIotController)
 routes.post('/api/v1/iot', createIotController)
-routes.get('/api/v1/iot/:status', listIotsController)
+routes.get('/api/v1/iots', listIotsController)
 
 export default routes
