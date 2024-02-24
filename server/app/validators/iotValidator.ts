@@ -23,5 +23,6 @@ export const updateIotSchema = Joi.object().keys({
 }).required()
 
 export const listIotsSchema = Joi.object().keys({
-  status: Joi.string().valid('has-reports', 'has-no-reports', 'on-and-offs', 'errors').required()
+  status: Joi.string().valid('has-reports', 'has-no-reports', 'on-and-offs', 'errors').required(),
+  imei: Joi.string().allow('').optional(),
 }).required()

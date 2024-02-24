@@ -49,13 +49,13 @@ export async function createService ({ body }: { body: IIot }): Promise<IIot> {
   return newIot
 }
 
-export async function listIotsService({ slugStatus }: { slugStatus: string }): Promise<IIot[]> {
-  const iots = await strategyListIots({ slugStatus });
+export async function listIotsService({ slugStatus, imei }: { slugStatus: string, imei?: string }): Promise<IIot[]> {
+  const iots = await strategyMountQuery({ slugStatus });
 
   return iots
 }
 
-async function strategyListIots({ slugStatus }: { slugStatus: string }): Promise<IIot[]> {
+async function strategyMountQuery({ slugStatus }: { slugStatus: string }): Promise<IIot[]> {
   const strategy: { [key: string]: any } = {
     'has-reports': {
       $and: [
@@ -86,11 +86,11 @@ async function strategyListIots({ slugStatus }: { slugStatus: string }): Promise
     }
   };
 
-  const filters = strategy[slugStatus];
+  const query = strategy[slugStatus];
 
-  if (!filters) throw new RequestError('Invalid slugStatus', 400);
+  if (!query) throw new RequestError('Invalid slug status', 400);
 
-  const iots = await listIotFiltered({ filter: filters });
+  const iots = await listIotFiltered({ filter: query });
 
   return iots;
 }

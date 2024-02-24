@@ -1,4 +1,5 @@
 export interface IIot {
+  _id: string
     tag: string
     imei: string
     value: number

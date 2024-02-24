@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express'
-import { updateService, createService, listService } from '../services/iotService'
-import { createIotSchema, updateIotSchema } from '../validators/iotValidator'
+import { updateService, createService, listIotsService } from '../services/iotService'
+import { createIotSchema, listIotsSchema, updateIotSchema } from '../validators/iotValidator'
 import { RequestError } from '../errors/RequestError'
 import { type ControllerResponse } from '../domains/interfaces/httpResponse'
 import { LoggerService } from '../infra/log/logService'
@@ -63,15 +63,13 @@ export async function createIotController (req: Request, res: Response): Promise
 
 export async function listIotsController (req: Request, res: Response): Promise<ControllerResponse> {
   try {
-    const { status } = req.params
-
-    const { error } = createIotSchema.validate(status)
+    const { error, value } = listIotsSchema.validate(req.query)
 
     if (error != null) {
       throw new RequestError(String(error.message ?? error), 422)
     }
 
-    const iots = await listService({ status })
+    const iots = await listIotsService({ slugStatus: value.status, imei: '1' })
 
     return res.status(200).send({
       message: 'success',

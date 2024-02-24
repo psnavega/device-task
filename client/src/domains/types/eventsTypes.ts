@@ -1,0 +1,1 @@
+export type FilterChangeEvent = React.ChangeEvent<HTMLSelectElement | HTMLInputElement>;
