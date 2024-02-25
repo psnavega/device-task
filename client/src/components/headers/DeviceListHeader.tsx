@@ -3,6 +3,7 @@ import { TagEnum } from "../../domains/enums/tagEnum";
 import { convertCamelCaseToSlug } from "../../utils/string/convertCamelCaseToSlug";
 import { IDeviceFilter } from "../../domains/interfaces/IDeviceFilter";
 import { FilterChangeEvent } from "../../domains/types/eventsTypes";
+import { Link } from "react-router-dom";
 
 export const DeviceListHeader = ({
   onFilter,
@@ -57,6 +58,7 @@ export const DeviceListHeader = ({
               ))}
             </select>
           </div>
+          
           <div className="flex items-center">
             <label htmlFor="imeiFilter" className="text-sm font-medium text-gray-700 mr-2">IMEI:</label>
             <input
@@ -68,6 +70,9 @@ export const DeviceListHeader = ({
               className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md p-1"
             />
           </div>
+          <Link to="/device-reports" className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">
+            Go to reports page
+          </Link>
           <button
             className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
             onClick={handleCleanFields}
