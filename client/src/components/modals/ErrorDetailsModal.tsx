@@ -1,4 +1,27 @@
-export const ErrorDetailsModal = ({ errorDetails, modalOpen, handleCloseModal }: { errorDetails: string, modalOpen: boolean, handleCloseModal: () => void }) => {
+import { useEffect, useState } from "react";
+import deviceService from "../../services/deviceService";
+
+export const ErrorDetailsModal = ({
+    errorDetails,
+    modalOpen,
+    handleCloseModal
+}: {
+    errorDetails: string,
+    modalOpen: boolean,
+    handleCloseModal: () => void
+}) => {
+    const suggestionFixError = errorDetails === 'BAD_CONFIGURATION' ? 'Critical error contact with support' : 'No suggestion cataloged to fix';
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        deviceService.getErrorsCatalog()
+            .then((response) => {
+                setData(response.data);
+            }).catch((error) => {
+                console.error('Error to get errors catalog', error);
+            });
+    }, [modalOpen]);
+
     return (
         <div className={`fixed z-10 inset-0 overflow-y-auto ${modalOpen ? 'block' : 'hidden'}`}>
             <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -20,19 +43,19 @@ export const ErrorDetailsModal = ({ errorDetails, modalOpen, handleCloseModal }:
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
-                                            <tr>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Erro 1</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sugestão 1</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Erro 2</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sugestão 2</td>
-                                            </tr>
+                                            {
+                                                data && data.map((error: string) => (
+                                                    <tr key={error}>
+                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{error}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{'No suggestion to fix'}</td>
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
                                     <div className="mt-4">
                                         <p className="text-sm text-red-500">Your error is: {errorDetails}</p>
-                                        <p className="text-sm text-gray-500">System suggestion to solution is: {'teste'}</p>
+                                        <p className="text-sm text-gray-500">System suggestion to solution is: { suggestionFixError }</p>
                                     </div>
                                 </div>
                             </div>

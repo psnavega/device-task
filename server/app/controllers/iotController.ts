@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express'
-import { updateService, createService, listIotsService } from '../services/iotService'
+import { updateService, createService, listIotsService, listErrorsService } from '../services/iotService'
 import { createIotSchema, listIotsSchema, updateIotSchema } from '../validators/iotValidator'
 import { RequestError } from '../errors/RequestError'
 import { type ControllerResponse } from '../domains/interfaces/httpResponse'
@@ -72,6 +72,27 @@ export async function listIotsController (req: Request, res: Response): Promise<
     return res.status(200).send({
       message: 'success',
       data: iots
+    })
+  } catch (error: any) {
+    const message = (error as Error).message ?? 'Internal server error'
+    const status = error.statusCode ?? 500
+
+    LoggerService.error(message, error.stack)
+
+    return res.status(status).send({
+      error: true,
+      message
+    })
+  }
+}
+
+export async function listErrorsController (req: Request, res: Response): Promise<ControllerResponse> {
+  try {
+    const errors = await listErrorsService()
+
+    return res.status(200).send({
+      message: 'success',
+      data: errors
     })
   } catch (error: any) {
     const message = (error as Error).message ?? 'Internal server error'

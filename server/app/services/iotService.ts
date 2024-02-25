@@ -1,7 +1,7 @@
 import { type IIot } from '../domains/interfaces/iot'
 import { RequestError } from '../errors/RequestError'
 import queryBuilder from '../handlers/queryBuilder/filterDeviceByTagAndImei'
-import { update, create, listIotFiltered } from '../repositories/iotRepository'
+import { update, create, listIotFiltered, listAllErrorsUnique } from '../repositories/iotRepository'
 import moment from 'moment'
 
 export async function updateService ({ imei, body }: { imei: string, body: IIot }): Promise<IIot> {
@@ -64,4 +64,10 @@ async function strategyMountQuery({ slugStatus, imei }: { slugStatus: string, im
   const iots = await listIotFiltered({ filter: query });
 
   return iots;
+}
+
+export async function listErrorsService (): Promise<string[]> {
+  const iots = await listAllErrorsUnique();
+
+  return iots
 }

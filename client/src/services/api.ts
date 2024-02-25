@@ -1,6 +1,6 @@
 import axios from "axios";
 import globals from "../config/globals";
-import { responseHandler } from "../handlers/ResponseHandler";
+import { responseHandler } from "../handlers/responseHandler";
 
 const api = axios.create({
     baseURL: globals().publicUrl,

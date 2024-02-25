@@ -56,3 +56,15 @@ export async function listIotFiltered({ filter }: { filter: any }): Promise<IIot
       throw new RequestError(error.message ?? 'Unknown error', error.statusCode ?? 500);
   }
 }
+
+export async function listAllErrorsUnique(): Promise<string[]> {
+  try {
+    const errors = await iotModel.find().distinct('errorCode').exec()
+
+    const filteredErrors = errors.filter(error => typeof error === 'string') as string[];
+
+    return filteredErrors;
+  } catch (error: any) {
+    throw new RequestError(error.message ?? 'Unknown error', error.statusCode ?? 500);
+  }
+}
