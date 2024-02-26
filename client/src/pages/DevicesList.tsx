@@ -29,9 +29,11 @@ export const DeviceList = () => {
     };
 
     return (
-        <div className="container mx-auto px-4">
-            <DeviceListHeader onFilter={handleFilter} onClear={handleClear}/>
-            <DeviceTable data={devices} requestError={error} searchButtonHasClicked={searchButtonHasClicked}/>
+        <div className="app">
+            <div className="container mx-auto px-4">
+                <DeviceListHeader onFilter={handleFilter} onClear={handleClear}/>
+                <DeviceTable data={devices} requestError={error} searchButtonHasClicked={searchButtonHasClicked}/>
+            </div>
         </div>
     );
   };
