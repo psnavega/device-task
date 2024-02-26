@@ -8,18 +8,25 @@
   <h1>Aplicação de controle de dispositivos</h1>
   
   <h2>Introdução</h2>
-  <p>Esta é uma aplicação full stack desenvolvida com Node.js, TypeScript, Express no backend e TypeScript, React e Vite no frontend. MongoDB como banco princial.</p>
+  <p>Esta é uma aplicação full stack desenvolvida com Node.js, TypeScript, Express no backend e TypeScript, React e Vite no frontend. MongoDB como banco principal. Para execução, é necessário possuir o docker e o docker-compose em sua máquina.</p>
   
   <h2>Como Usar</h2>
   
   <h3>1. Iniciar a Aplicação</h3>
-  <p>Para iniciar a aplicação, siga estas etapas:</p>
+    <p>Para iniciar a aplicação, siga estas etapas:</p>
+    <p>Abra um terminal com acesso ao git e:</p>
+    <p>Clone o projeto</p>
+    <pre><code>git clone https://github.com/psnavega/device-task.git</code></pre>
+
+  <p>Entre na pasta do projeto</p>
+  <pre><code>cd device-task</code></pre>
+
+  <p>Executa o projeto</p>
   <pre><code>docker-compose up</code></pre>
   <p>A aplicação backend estará disponível em <a href="http://localhost:3001">http://localhost:3001</a> e a aplicação frontend em <a href="http://localhost:5173">http://localhost:5173</a>.</p>
   
   <h3>2. Executar Testes Unitários no Backend</h3>
   <p>Para executar os testes unitários no backend, siga estas etapas:</p>
-  <pre><code>https://github.com/psnavega/device-task.git</code></pre>
 
   <pre><code>docker ps</code></pre>
   <p>Encontre o ID do contêiner do backend na lista de contêineres em execução.</p>
@@ -179,5 +186,14 @@
   </code></pre>
 
   <p>Note que nesse exemplo o status do retorno está como 422, ou seja entidade não processável. Ou seja, é esperado que a aplicação saiba lidar com erros e tratá-los</p>
+
+  <h3>Observações</h3>
+    <p>Pela natureza da aplicação optei por deixar a aplicação pública, não havendo necessidade de complefixicar o fluxo</p>
+
+  <h3>Licenciamento</h3>
+  <p>MIT</p>
+
+  <h3>Desenvolvido por</h3>
+  <p>Patrick Navega</p>
 </body>
 </html>
