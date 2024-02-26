@@ -32,6 +32,8 @@
   <p>Encontre o ID do contêiner do backend na lista de contêineres em execução.</p>
   <pre><code>docker exec -it &lt;ID_DO_CONTAINER&gt; npm run test</code></pre>
 
+  <p>Tomei a liberdade de criar um script de primeira carga para que o usuário que estiver executando a aplicação não precise inserir dispositivo por dispositivo</p>
+
   <h2>Como navegar pelo front-end</h2>
 
   <h4>Tela inicial da aplicação</h4>
@@ -189,6 +191,8 @@
 
   <h3>Observações</h3>
     <p>Pela natureza da aplicação optei por deixar a aplicação pública, não havendo necessidade de complefixicar o fluxo</p>
+    <p>Por se tratar de um MVP/Protótipo priorizei a funcionalidade e com isso não criei paginação para os registros também</p>
+    <p>Optei por não desenvolver a funcionalidade de permitir que o usuário possa associar uma sugestão a um erro por entender que isso seria uma nova feature</p>
 
   <h3>Licenciamento</h3>
   <p>MIT</p>
