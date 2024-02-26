@@ -4,18 +4,22 @@ import { dateToString } from "../../utils/date/dateToString";
 import { delayStatusHandler } from "../../handlers/delayStatusHandler";
 import { ErrorDetailsModal } from "../modals/ErrorDetailsModal";
 
-export const DeviceTable = ({ data,  requestError }: { data: IIot[], requestError?: string | null}) => {
-  const [searched, setSearched] = useState(false);
+export const DeviceTable = ({
+  data, 
+  requestError,
+  searchButtonHasClicked
+}: {
+  data: IIot[],
+  requestError?: string | null,
+  searchButtonHasClicked: boolean
+}) => {
+
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedErrorCode, setSelectedErrorCode] = useState<string | null>(null);
 
   useEffect(() => {
-    if (data.length === 0) {
-      setSearched(true);
-    } else {
-      setSearched(false);
-    }
-  }, [data]);
+    
+  }, [searchButtonHasClicked]);
 
   const handleOpenModal = (errorCode: string) => {
     setSelectedErrorCode(errorCode);
@@ -67,7 +71,7 @@ export const DeviceTable = ({ data,  requestError }: { data: IIot[], requestErro
           {!data.length && !requestError ? (
             <tr>
               <td className="px-6 py-4 whitespace-nowrap text-gray-500" colSpan={7}>
-                {searched ? "Realize uma busca para filtrar os dados" : "Nenhum registro encontrado para essa busca"}
+                {searchButtonHasClicked ? "Devices not found for this search" : "Search for devices to see them here"}
               </td>
             </tr>
           ) : (

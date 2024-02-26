@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export default async function connectToMongoDb (): Promise<void> {
   try {
-    const mongoURI = process.env.MONGO_DB
+    const mongoURI = process.env.MONGO_DB || 'mongodb://mongodb:27017'
 
     if (mongoURI == null) throw Error('Mongo - no connection string were passed')
 

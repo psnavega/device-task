@@ -7,6 +7,7 @@ import deviceService from "../services/deviceService";
 export const DeviceList = () => {
     const [devices, setDevices] = useState([]);
     const [error, setError] = useState<string | null>(null);
+    const [searchButtonHasClicked, setSearchButtonHasClicked] = useState(false);
 
     const handleFilter = async (newFilters: IDeviceFilter) => {
         try {
@@ -16,18 +17,21 @@ export const DeviceList = () => {
         } catch (e) {
             setError((e as Error).message);
             console.error(e);
+        } finally {
+            setSearchButtonHasClicked(true);
         }
     }
 
     const handleClear = () => {
         setDevices([]);
+        setSearchButtonHasClicked(false);
         setError(null);
     };
 
     return (
         <div className="container mx-auto px-4">
             <DeviceListHeader onFilter={handleFilter} onClear={handleClear}/>
-            <DeviceTable data={devices} requestError={error} />
+            <DeviceTable data={devices} requestError={error} searchButtonHasClicked={searchButtonHasClicked}/>
         </div>
     );
   };
