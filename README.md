@@ -19,6 +19,8 @@
   
   <h3>2. Executar Testes Unitários no Backend</h3>
   <p>Para executar os testes unitários no backend, siga estas etapas:</p>
+  <pre><code>https://github.com/psnavega/device-task.git</code></pre>
+
   <pre><code>docker ps</code></pre>
   <p>Encontre o ID do contêiner do backend na lista de contêineres em execução.</p>
   <pre><code>docker exec -it &lt;ID_DO_CONTAINER&gt; npm run test</code></pre>
