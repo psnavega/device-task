@@ -52,6 +52,7 @@ describe('updateIotSchema', () => {
       tag: 'errorCode',
       value: 1,
       errorCode: 'MEMORY_FAILURE',
+      timeSinceLastPowerOnMinutes: 1,
     };
 
     const validationResult = updateIotSchema.validate(validData);
